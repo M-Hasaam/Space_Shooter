@@ -1,0 +1,84 @@
+===================================================================
+📦 SETUP & USAGE GUIDE FOR UBUNTU SYSTEMS
+===================================================================
+
+✅ Requirements for Compiling (Ubuntu — Run Once Only)
+-------------------------------------------------------
+
+1) Install GNU G++ Compiler:
+   sudo apt-get install g++
+
+2) Install SFML (Simple and Fast Multimedia Library):
+   sudo apt-get install libsfml-dev
+
+
+🔧 Compilation Commands (In Order — Ubuntu Terminal)
+-------------------------------------------------------
+
+1) Compile the source file:
+   g++ -c main.cpp
+
+2) Link the object file and build the final executable:
+   g++ main.o -o sfml-app -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system
+
+
+▶️ Running the Game (Ubuntu)
+-------------------------------------------------------
+
+3) Execute the game binary:
+   ./sfml-app
+
+
+🟡 One-liner Compilation and Execution (Ubuntu)
+-------------------------------------------------------
+
+Only one:
+   g++ -c main.cpp; g++ main.o -o sfml-app -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system; ./sfml-app
+
+Other way:
+   g++ main.cpp -o output_exe -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system; ./output_exe
+
+Also:
+   g++ main.cpp -o output.exe -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system; ./output.exe
+
+
+===================================================================
+🎵 Audio Conversion using FFmpeg (Ubuntu)
+===================================================================
+
+Install ffmpeg (if not already installed):
+   sudo apt-get install ffmpeg
+
+
+🎧 Convert a single `.ogg` file:
+   ffmpeg -i music.ogg -c:a libvorbis output.ogg
+
+🎧 Convert and replace:
+   ffmpeg -i music.ogg -c:a libvorbis output.ogg; rm music.ogg; rename output.ogg music.ogg
+
+
+===================================================================
+🔁 Batch Re-encoding `.ogg` Files (Ubuntu)
+===================================================================
+
+Step-by-step:
+
+1) Navigate to Music folder:
+   cd Music
+
+2) Re-encode all .ogg files in the folder:
+   for file in *.ogg; do ffmpeg -i "$file" -c:a libvorbis "output_${file}"; rm "$file"; mv "output_${file}" "$file"; done
+
+3) Go back to parent folder:
+   cd ..
+
+✅ One-liner for all steps:
+   cd Music; for file in *.ogg; do ffmpeg -i "$file" -c:a libvorbis "output_${file}"; rm "$file"; mv "output_${file}" "$file"; done; cd ..
+
+
+===================================================================
+🎶 Convert `.mp3` to `.ogg` (Ubuntu)
+===================================================================
+
+Batch convert all `.mp3` files to `.ogg`:
+   for file in *.mp3; do ffmpeg -i "$file" -c:a libvorbis "temp_${file%.mp3}.ogg"; rm "$file"; mv "temp_${file%.mp3}.ogg" "${file%.mp3}.ogg"; done
